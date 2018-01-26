@@ -102,7 +102,15 @@ class wzk.ui.grid.FilterWatcher extends goog.events.EventTarget
     @return {string}
   ###
   joinFilterName: (splittedFilterName) ->
-    nameParts = (splittedFilterName[i] for i in [0..splittedFilterName.length - 2])
+    operators = [
+      'in', 'lt', 'gt', 'lte', 'gte', 'contains', 'icontains', 'isnull', 'all', 'day', 'month', 'year',
+      'hour', 'minute', 'second'
+    ]
+    nameParts = (
+      if splittedFilterName[..].pop() in operators
+      then (splittedFilterName[i] for i in [0..splittedFilterName.length - 2])
+      else splittedFilterName
+    )
     nameParts.join wzk.ui.grid.Filter.SEPARATOR
 
   ###*

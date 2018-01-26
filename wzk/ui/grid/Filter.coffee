@@ -89,8 +89,12 @@ class wzk.ui.grid.Filter extends goog.events.EventTarget
     @protected
   ###
   setOperatorAndName: ->
+    operators = [
+      'in', 'lt', 'gt', 'lte', 'gte', 'contains', 'icontains', 'isnull', 'all', 'day', 'month', 'year',
+      'hour', 'minute', 'second'
+    ]
     toks = @getFilter().split(wzk.ui.grid.Filter.SEPARATOR)
-    @setOperator if toks.length > 1 then toks.pop() else ''
+    @setOperator if toks.length > 1 and toks[..].pop() in operators then toks.pop() else ''
     @name = toks.join wzk.ui.grid.Filter.SEPARATOR
 
   ###*
